@@ -1,35 +1,16 @@
 
-
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from openpyxl import load_workbook
 
-# Initialize the WebDriver
-driver = webdriver.Chrome()
+import GetPricesWassermans
+from Util import Util
 
-# Navigate to the website
-driver.get("https://wassermansupermarket.com/#!_/flushing")
+milkPrice = Util.getPriceFromWassermans("milk")
 
-# Find the search bar and enter "milk"
-search_bar = driver.find_element(By.ID, 'small-searchterms')
-search_bar.send_keys("milk")
+breadPrice = Util.getPriceFromWassermans("bread")
 
-# Use an explicit wait for the search results to load
-wait = WebDriverWait(driver, 10)
-search_bar.send_keys(Keys.RETURN)
+lifePrice = Util.getPriceFromWassermans("life")
 
-# Find the price element using an explicit wait
-price_element = wait.until(EC.visibility_of_element_located((By.CLASS_NAME, 'prices')))
-price_text = price_element.text
 
-# Print the price
-print(f"Price: {price_text}")
-
-# Quit the WebDriver
-driver.quit()
 
 # Load the existing workbook
 workbook = load_workbook('priceCheckerWorkBook.xlsx')
@@ -39,7 +20,13 @@ worksheet = workbook.active
 
 # Update cell values
 worksheet['A2'] = "milk"
-worksheet['B2'] = price_text
+worksheet['B2'] = milkPrice
+
+worksheet['A3'] = "bread"
+worksheet['B3'] = breadPrice
+
+worksheet['A4'] = "life"
+worksheet['B4'] = lifePrice
 
 # Save the workbook
 workbook.save('priceCheckerWorkBook.xlsx')
