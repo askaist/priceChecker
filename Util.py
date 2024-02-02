@@ -1,3 +1,5 @@
+import time
+
 from openpyxl import load_workbook
 from openpyxl.utils import get_column_letter
 
@@ -28,22 +30,7 @@ class Util:
             price_text = price_element.text
             priceList.append(price_text)
 
-        # # Find the search bar and enter the product
-        # search_bar = driver.find_element(By.ID, 'small-searchterms')
-        # search_bar.send_keys(product)
-        #
-        # # Use an explicit wait for the search results to load
-        # wait = WebDriverWait(driver, 10)
-        # search_bar.send_keys(Keys.RETURN)
-        #
-        # Find the price element using an explicit wait
-        # price_element = wait.until(EC.visibility_of_element_located((By.CLASS_NAME, 'prices')))
-        # price_text = price_element.text
-        #
-        # # Print the price
-        # print(f"Price: {price_text}")
 
-        # Quit the WebDriver
         driver.quit()
 
         return priceList
@@ -66,3 +53,48 @@ class Util:
         workbook.save('priceCheckerWorkBook.xlsx')
 
         print("data saved")
+
+    @staticmethod
+    def getPricesFromWalmart():
+        driver = webdriver.Chrome()
+        driver.get("https://www.walmart.com/")
+        time.sleep(100)
+
+
+
+    @staticmethod
+    def saveUrlListFromExcel(startRow, startCol):
+        url = ""
+        urlList = []
+
+
+        # Load the existing workbook
+        workbook = load_workbook('priceCheckerWorkBook.xlsx')
+
+        # Select the active sheet
+        worksheet = workbook.active
+
+        i = 0
+        while True:
+            char = get_column_letter(startCol)
+            cell_value = worksheet[char + str(startRow + i)].value
+
+            if cell_value is None:
+                break  # Exit the loop when the cell is empty (None)
+
+            urlList.append(cell_value)
+            i += 1
+            print(cell_value)
+
+        return urlList
+
+
+
+
+    @staticmethod
+    def getPricesFromAarons(urlList):
+        pass
+
+    @staticmethod
+    def getPricesFromSeasons(urlList):
+        pass
