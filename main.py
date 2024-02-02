@@ -6,14 +6,11 @@ from Util import Util
 
 pricesList = []
 
-milkPrice = Util.getPriceFromWassermans("milk")
-pricesList.append(milkPrice)
+urlList = ["https://wassermansupermarket.com/#!/hb/m/000000/r/11406/he/flushing/",
+           "https://wassermansupermarket.com/#!/hb/m/000000/r/15346/he/flushing/",
+           "https://wassermansupermarket.com/#!/hb/m/000000/r/22987/he/flushing/"]
 
-breadPrice = Util.getPriceFromWassermans("bread")
-pricesList.append(breadPrice)
-
-lifePrice = Util.getPriceFromWassermans("life")
-pricesList.append(lifePrice)
+pricesList = Util.getPriceFromWassermans(urlList)
 
 
 Util.addListToPrices(pricesList, 2, 2)
