@@ -1,7 +1,13 @@
 from Util import Util
 
-urlList = Util.saveUrlListFromExcel(2, 3)
+wassermansUrlList = Util.saveUrlListFromExcel(2, 2)
 
-pricesList = Util.getPriceFromWassermans(urlList)
+wassermansPricesList = Util.getPriceFromWassermans(wassermansUrlList)
 
-Util.addListToPrices(pricesList, 2, 2)
+seasonsUrlList = Util.saveUrlListFromExcel(2, 3)
+
+seasonsPricesList = Util.getPricesFromSeasons(seasonsUrlList)
+
+Util.addListToPrices(wassermansPricesList, 2, 2)
+
+Util.addListToPrices(seasonsPricesList, 2, 3)
